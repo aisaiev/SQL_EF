@@ -148,3 +148,71 @@ WHERE manager_id = (
 		FROM employees
 		WHERE first_name = 'Payam'
 		)
+
+-- Task_14
+SELECT employees.department_id,
+	first_name,
+	last_name,
+	job_id,
+	department_name
+FROM employees,
+	departments
+WHERE employees.department_id = departments.department_id
+	AND department_name = 'Finance'
+
+-- Task_15
+SELECT *
+FROM employees
+WHERE salary = 3000
+	AND manager_id = 121
+
+-- Task_16
+SELECT *
+FROM employees
+WHERE emplyee_id IN (134, 159, 183)
+
+-- Task_17
+SELECT *
+FROM employees
+WHERE salary BETWEEN 1000
+		AND 3000
+
+-- Task_18
+SELECT *
+FROM employees
+WHERE salary BETWEEN (
+				SELECT MIN(salary)
+				FROM employees
+				)
+		AND 2500
+
+-- Task_19
+SELECT *
+FROM employees
+WHERE department_id NOT IN (
+		SELECT department_id
+		FROM departments
+		WHERE manager_id BETWEEN 100
+				AND 200
+		)
+
+-- Task_20
+SELECT *
+FROM employees
+WHERE salary = (
+		SELECT DISTINCT salary
+		FROM employees
+		ORDER BY salary DESC OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY
+		)
+
+-- Task_21
+SELECT first_name,
+	last_name,
+	hire_date
+FROM employees
+WHERE department_id = (
+		SELECT department_id
+		FROM employees
+		WHERE first_name = 'Clara'
+		)
+	AND first_name != 'Clara'
